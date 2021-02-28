@@ -78,3 +78,5 @@ router.get("/:id(\\d+)", async (req, res) => {
   // user.hashedPassword = ''
   res.json(user)
 })
+
+export default router

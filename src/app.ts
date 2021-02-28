@@ -5,11 +5,12 @@ import express from 'express'
 import router from './routes/index';
 import { HttpException } from './routes/utils/HttpException'
 import { Request, Response, NextFunction } from 'express'
-
+const port = process.env.PORT
 
 const prisma = new PrismaClient()
 const app = express()
 
+app.use(router)
 
 
 app.use((req, res, next) => {
@@ -17,7 +18,6 @@ app.use((req, res, next) => {
 
   next(err)
 });
-
 app.use((err: HttpException, req:Request, res: Response, next: NextFunction) => {
   res.status(err.status || 500);
   // const isProduction = environment === 'production';
@@ -38,9 +38,8 @@ app.use((err: HttpException, req:Request, res: Response, next: NextFunction) => 
   res.json(errorData);
 });
 
-
-const server = app.listen(3000, () =>
+const server = app.listen(port, () =>
 console.log(
-  '🚀 Server ready at: http://localhost:3000\n⭐️ See sample requests: http://pris.ly/e/ts/rest-express#3-using-the-rest-api',
+  `🚀 Server ready at: http://localhost:${port}\n⭐️ See sample requests: http://pris.ly/e/ts/rest-express#3-using-the-rest-api`,
 ),
 )
