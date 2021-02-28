@@ -81,7 +81,7 @@ model Plant {
   typeId      Int
   description String
   dimensions  String
-  price       Int
+  price       Decimal
   stock       Int
   potSize     String
 

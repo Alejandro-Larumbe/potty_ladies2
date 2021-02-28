@@ -1,34 +1,21 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "phone" INTEGER,
+    "hashedPassword" TEXT NOT NULL,
+    "addressStreet1" TEXT,
+    "addressStreet2" TEXT,
+    "addressCity" TEXT,
+    "addressRegion" TEXT,
+    "addressZip" INTEGER,
 
-  - You are about to drop the column `name` on the `User` table. All the data in the column will be lost.
-  - You are about to drop the `Post` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Profile` table. If the table is not empty, all the data it contains will be lost.
-  - Added the required column `updatedAt` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `firstName` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `lastName` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `hashedPassword` to the `User` table without a default value. This is not possible if the table is not empty.
-
-*/
--- DropForeignKey
-ALTER TABLE "Post" DROP CONSTRAINT "Post_authorId_fkey";
-
--- DropForeignKey
-ALTER TABLE "Profile" DROP CONSTRAINT "Profile_userId_fkey";
-
--- AlterTable
-ALTER TABLE "User" DROP COLUMN "name",
-ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN     "updatedAt" TIMESTAMP(3) NOT NULL,
-ADD COLUMN     "firstName" TEXT NOT NULL,
-ADD COLUMN     "lastName" TEXT NOT NULL,
-ADD COLUMN     "phone" INTEGER,
-ADD COLUMN     "hashedPassword" TEXT NOT NULL,
-ADD COLUMN     "addressStreet1" TEXT,
-ADD COLUMN     "addressStreet2" TEXT,
-ADD COLUMN     "addressCity" TEXT,
-ADD COLUMN     "addressRegion" TEXT,
-ADD COLUMN     "addressZip" INTEGER;
+    PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Order" (
@@ -78,7 +65,7 @@ CREATE TABLE "Plant" (
     "typeId" INTEGER NOT NULL,
     "description" TEXT NOT NULL,
     "dimensions" TEXT NOT NULL,
-    "price" INTEGER NOT NULL,
+    "price" DECIMAL(65,30) NOT NULL,
     "stock" INTEGER NOT NULL,
     "potSize" TEXT NOT NULL,
 
@@ -138,11 +125,8 @@ CREATE TABLE "Theme" (
     PRIMARY KEY ("id")
 );
 
--- DropTable
-DROP TABLE "Post";
-
--- DropTable
-DROP TABLE "Profile";
+-- CreateIndex
+CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "PromoCode.name_unique" ON "PromoCode"("name");
