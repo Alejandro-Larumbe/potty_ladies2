@@ -11,3 +11,5 @@ export class HttpException extends Error {
       this.title = title
     }
 }
+
+export default HttpException
